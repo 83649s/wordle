@@ -9,6 +9,7 @@ def main():
 
     game_won = False
 
+    print(word)
     while tries != 0:
         guess = take_guess(words)
         formatted_guess = check_guess(guess, word)
@@ -22,7 +23,7 @@ def main():
     if game_won:
         print('You won')
     else:
-        print('You lost')
+        print('Out of guesses')
 
 
 def read_words(file):
@@ -37,20 +38,22 @@ def read_words(file):
 
 
 def take_guess(allowed_gueses):
-    guess = str(input())
-    guess = guess.lower()
+    legit_guess = False
 
-    if guess not in allowed_gueses:
-        take_guess(allowed_gueses)
-    else:
-        return guess
+    while not legit_guess:
+        guess = str(input())
+        guess = guess.lower()
+        if guess in allowed_gueses:
+            legit_guess = True
+
+    return guess
 
 
 def check_guess(guess, real_word):
     how_close = []
-    any_letters_in_word = False
 
     for i in range(5):
+        any_letters_in_word = False
         for j in range(5):
             if guess[i] == real_word[j]:
                 any_letters_in_word = True
